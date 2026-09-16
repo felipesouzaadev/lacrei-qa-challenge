@@ -1,5 +1,7 @@
 # Lacrei QA Challenge
 
+[![CI - Cypress E2E](https://github.com/felipesouzaadev/lacrei-qa-challenge/actions/workflows/ci.yml/badge.svg)](https://github.com/felipesouzaadev/lacrei-qa-challenge/actions/workflows/ci.yml)
+
 Projeto de automação de testes E2E desenvolvido para o desafio técnico de QA da Lacrei Saúde.
 
 ## Objetivo
@@ -107,3 +109,22 @@ As credenciais utilizadas pelos testes são armazenadas em variáveis de ambient
 O arquivo `.env` está incluído no `.gitignore`.
 
 O arquivo `.env.example` contém apenas exemplos das variáveis necessárias para configurar o projeto.
+
+## Integração contínua
+
+O projeto possui integração contínua configurada com GitHub Actions.
+
+O workflow é executado automaticamente em:
+
+- Pushes para a branch `main`
+- Pull Requests direcionados para a branch `main`
+- Execuções manuais pelo GitHub Actions
+
+Durante a execução do pipeline são realizadas as seguintes etapas:
+
+- Checkout do código
+- Configuração do Node.js
+- Instalação das dependências com `npm ci`
+- Execução dos testes E2E com `npm test`
+
+As credenciais utilizadas durante os testes são armazenadas com segurança utilizando GitHub Actions Secrets.
