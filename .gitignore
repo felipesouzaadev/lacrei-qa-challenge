@@ -1,0 +1,16 @@
+# Dependências
+node_modules/
+
+# Variáveis de ambiente e credenciais
+.env
+.env.*
+!.env.example
+cypress.env.json
+
+# Arquivos gerados pelo Cypress
+cypress/screenshots/
+cypress/videos/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
