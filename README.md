@@ -110,7 +110,7 @@ O arquivo `.env` está incluído no `.gitignore`.
 
 O arquivo `.env.example` contém apenas exemplos das variáveis necessárias para configurar o projeto.
 
-## Integração contínua
+## Pipeline CI/CD com GitHub Actions
 
 O projeto possui integração contínua configurada com GitHub Actions.
 
@@ -125,6 +125,10 @@ Durante a execução do pipeline são realizadas as seguintes etapas:
 - Checkout do código
 - Configuração do Node.js
 - Instalação das dependências com `npm ci`
-- Execução dos testes E2E com `npm test`
+- Execução dos testes E2E com Cypress
+- Geração de relatório de testes no formato JUnit XML
+- Armazenamento do relatório como artifact no GitHub Actions por 14 dias
+
+O relatório é armazenado mesmo em caso de falha nos testes, facilitando a análise dos resultados da execução.
 
 As credenciais utilizadas durante os testes são armazenadas com segurança utilizando GitHub Actions Secrets.
