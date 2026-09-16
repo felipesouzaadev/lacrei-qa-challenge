@@ -32,7 +32,8 @@ jobs:
         run: npm ci
 
       - name: Executar testes E2E
-              run: npm test -- --reporter junit --reporter-options "mochaFile=results/junit-[hash].xml,toConsole=true"
+        run: |
+          npm test -- --reporter junit --reporter-options "mochaFile=results/junit-[hash].xml,toConsole=true"
 
       - name: Armazenar relatório de testes
         if: always()
