@@ -1,0 +1,35 @@
+name: CI - Cypress E2E
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  e2e-tests:
+    name: Testes E2E
+    runs-on: ubuntu-latest
+
+    env:
+      CYPRESS_EMAIL_TESTE: ${{ secrets.CYPRESS_EMAIL_TESTE }}
+      CYPRESS_EMAIL_APP_PASSWORD: ${{ secrets.CYPRESS_EMAIL_APP_PASSWORD }}
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Executar testes E2E
+        run: npm test
