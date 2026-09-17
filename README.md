@@ -132,3 +132,20 @@ Durante a execução do pipeline são realizadas as seguintes etapas:
 O relatório é armazenado mesmo em caso de falha nos testes, facilitando a análise dos resultados da execução.
 
 As credenciais utilizadas durante os testes são armazenadas com segurança utilizando GitHub Actions Secrets.
+
+### Estratégia de rollback
+
+O pipeline deste projeto é responsável pela validação automatizada dos testes e não realiza deploy da aplicação.
+
+Caso uma alteração enviada para a branch `main` cause falhas no pipeline ou introduza um comportamento indesejado, a estratégia recomendada é reverter o commit responsável utilizando `git revert`.
+
+Exemplo:
+
+```bash
+git revert <hash-do-commit>
+git push origin main
+```
+
+O uso de `git revert` cria um novo commit desfazendo as alterações anteriores, preservando o histórico do repositório e evitando a reescrita da branch compartilhada.
+
+Após o push da reversão, o GitHub Actions executará novamente o pipeline para validar que o projeto retornou a um estado estável.
