@@ -274,3 +274,16 @@ As credenciais utilizadas pela pipeline são armazenadas em GitHub Actions Secre
 Ao realizar um fork do projeto, os Secrets do repositório original não são copiados. Para executar a pipeline em outro repositório, devem ser cadastradas credenciais próprias.
 
 As execuções já realizadas podem ser consultadas na aba `Actions` do repositório.
+
+### Observação para Windows / PowerShell
+
+Em alguns ambientes Windows, a política de execução do PowerShell pode bloquear o arquivo `npm.ps1` e impedir a execução direta de comandos como `npm ci` ou `npm test`.
+
+Caso isso ocorra, utilize os comandos equivalentes através do executável `npm.cmd`:
+
+```powershell
+npm.cmd ci
+npm.cmd test
+```
+
+Essa situação está relacionada à política de execução do PowerShell e não ao funcionamento do projeto.
