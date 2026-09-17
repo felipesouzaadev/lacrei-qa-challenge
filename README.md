@@ -149,3 +149,39 @@ git push origin main
 O uso de `git revert` cria um novo commit desfazendo as alterações anteriores, preservando o histórico do repositório e evitando a reescrita da branch compartilhada.
 
 Após o push da reversão, o GitHub Actions executará novamente o pipeline para validar que o projeto retornou a um estado estável.
+
+## Documentação e evidências
+
+Os artefatos produzidos durante o desafio estão organizados nas seções abaixo.
+
+### Testes manuais
+
+- [Execução dos testes manuais](docs/testes-manuais/execucao-testes.md)
+- [Bugs encontrados](docs/testes-manuais/bugs.md)
+
+### Cenários BDD / Gherkin
+
+- [Busca de profissionais](docs/gherkin/buscar-profissional.feature)
+- [Cadastro e busca após cadastro](docs/gherkin/cadastro-pos-cadastro-busca.feature)
+- [Recuperação de senha](docs/gherkin/recuperar-senha.feature)
+
+### Testes não funcionais
+
+- [Performance e carga com k6](docs/testes-nao-funcionais/performance.md)
+- [Acessibilidade](docs/testes-nao-funcionais/acessibilidade.md)
+- [Responsividade](docs/testes-nao-funcionais/responsividade.md)
+
+### Scripts de performance
+
+- [Smoke test com k6](tests/performance/k6-smoke.js)
+- [Teste com 30 usuários simultâneos](tests/performance/k6-30-users.js)
+
+### Bugs registrados no GitHub
+
+- [BUG-001 — Responsividade na busca de profissionais](https://github.com/felipesouzaadev/lacrei-qa-challenge/issues/1)
+- [BUG-002 — Número de celular válido rejeitado na confirmação por SMS](https://github.com/felipesouzaadev/lacrei-qa-challenge/issues/2)
+- [BUG-003 — Performance acima de 500 ms com 30 usuários simultâneos](https://github.com/felipesouzaadev/lacrei-qa-challenge/issues/3)
+
+### CI/CD
+
+O projeto possui pipeline automatizado com GitHub Actions para execução dos testes E2E, geração de relatório JUnit e armazenamento do relatório como artifact.
