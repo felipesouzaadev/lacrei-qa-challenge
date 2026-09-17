@@ -185,3 +185,92 @@ Os artefatos produzidos durante o desafio estão organizados nas seções abaixo
 ### CI/CD
 
 O projeto possui pipeline automatizado com GitHub Actions para execução dos testes E2E, geração de relatório JUnit e armazenamento do relatório como artifact.
+
+## Como reproduzir a entrega
+
+### 1. Clonar e instalar o projeto
+
+```bash
+git clone https://github.com/felipesouzaadev/lacrei-qa-challenge.git
+cd lacrei-qa-challenge
+npm ci
+```
+
+### 2. Configurar as variáveis de ambiente
+
+O arquivo `.env` não é versionado por segurança. Utilize `.env.example` como referência e crie um arquivo `.env` local.
+
+Windows / PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Linux / macOS:
+
+```bash
+cp .env.example .env
+```
+
+Preencha o arquivo `.env` com uma conta de e-mail de teste própria:
+
+```env
+CYPRESS_EMAIL_TESTE=seu-email-de-teste
+CYPRESS_EMAIL_APP_PASSWORD=sua-senha-de-aplicativo
+```
+
+O cenário automatizado de cadastro valida a confirmação recebida por e-mail. Por isso, é necessária uma conta de teste compatível com IMAP. Em contas Gmail, deve ser utilizada uma senha de aplicativo em vez da senha principal da conta.
+
+### 3. Executar os testes E2E
+
+Executar o cenário automatizado em modo headless:
+
+```bash
+npm test
+```
+
+Abrir o Cypress em modo interativo:
+
+```bash
+npm run cy:open
+```
+
+Executar o Cypress em modo headless:
+
+```bash
+npm run cy:run
+```
+
+### 4. Executar os testes de performance
+
+Os testes de performance utilizam k6 e acessam um endpoint autenticado da aplicação de staging.
+
+Antes da execução, é necessário possuir o k6 instalado e disponibilizar em variável de ambiente o cookie de uma sessão autenticada válida.
+
+PowerShell:
+
+```powershell
+$env:LACREI_COOKIE="<cookie-de-uma-sessao-autenticada>"
+k6 run tests/performance/k6-smoke.js
+k6 run tests/performance/k6-30-users.js
+```
+
+Linux / macOS:
+
+```bash
+export LACREI_COOKIE="<cookie-de-uma-sessao-autenticada>"
+k6 run tests/performance/k6-smoke.js
+k6 run tests/performance/k6-30-users.js
+```
+
+Nenhum cookie, senha, token ou credencial utilizada nos testes deve ser adicionada ao repositório.
+
+### 5. CI/CD
+
+O GitHub Actions executa automaticamente o teste E2E em pushes e Pull Requests configurados no workflow.
+
+As credenciais utilizadas pela pipeline são armazenadas em GitHub Actions Secrets e não fazem parte do código-fonte.
+
+Ao realizar um fork do projeto, os Secrets do repositório original não são copiados. Para executar a pipeline em outro repositório, devem ser cadastradas credenciais próprias.
+
+As execuções já realizadas podem ser consultadas na aba `Actions` do repositório.
