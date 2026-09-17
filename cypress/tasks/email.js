@@ -17,15 +17,14 @@ async function procurarLink(client, destinatario) {
       return null;
     }
 
-    // Busca somente as 50 mensagens mais recentes da INBOX
-    // Busca mensagens recentes destinadas especificamente ao e-mail criado no teste
+    // Considera mensagens recentes para tolerar pequenos atrasos do serviço de e-mail
     const desde = new Date(Date.now() - 30 * 60 * 1000);
+
+    await client.noop();
 
     const uids = await client.search(
       {
         since: desde,
-        from: "suporte.staging@lacreisaude.com.br",
-        subject: "Confirme sua conta na Lacrei Saúde",
       },
       {
         uid: true,
@@ -40,7 +39,7 @@ async function procurarLink(client, destinatario) {
       return null;
     }
 
-    const ultimosUids = uids.slice(-30);
+    const ultimosUids = uids.slice(-50);
 
     const mensagens = await client.fetchAll(
       ultimosUids.join(","),
@@ -212,7 +211,7 @@ async function obterLinkConfirmacao(destinatario) {
   try {
     await client.connect();
 
-    // tenta durante aproximadamente 60 segundos
+    // tenta durante aproximadamente 180 segundos
     for (let tentativa = 1; tentativa <= 36; tentativa++) {
       console.log(`[E-MAIL] Tentativa ${tentativa}/36 para ${destinatario}`);
 

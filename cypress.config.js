@@ -14,6 +14,10 @@ const {
 const { obterLinkConfirmacao } = require("./cypress/tasks/email");
 
 module.exports = defineConfig({
+  env: {
+    EMAIL_TESTE: process.env.CYPRESS_EMAIL_TESTE,
+  },
+
   e2e: {
     baseUrl: "https://paciente-staging.lacreisaude.com.br",
 
