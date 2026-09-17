@@ -136,20 +136,6 @@ async function procurarLink(client, destinatario) {
 
         console.log("[E-MAIL] Botão 'Confirmar e-mail' encontrado.");
 
-        // Log seguro: mostra somente domínio + caminho, sem token/query string
-        try {
-          const urlSegura = new URL(linkConfirmacao);
-
-          console.log(
-            "[E-MAIL][DEBUG] Destino:",
-            `${urlSegura.origin}${urlSegura.pathname}`,
-          );
-        } catch {
-          console.log(
-            "[E-MAIL][DEBUG] Link encontrado, mas não foi possível exibir o destino.",
-          );
-        }
-
         return linkConfirmacao;
       }
 
